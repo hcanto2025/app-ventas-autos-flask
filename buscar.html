@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Buscar Autos</h1>
+<form method="post" class="formulario" style="max-width:500px;">
+    <label>Marca:</label>
+    <select name="marca">
+        <option value="">Todas</option>
+        {% for m in marcas %}
+            <option value="{{ m }}" {% if marca==m %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+    </select>
+    <label>Modelo:</label>
+    <input type="text" name="modelo" value="{{ modelo }}">
+    <label>Año:</label>
+    <input type="number" name="anio" value="{{ anio }}" min="1900" max="2100">
+    <label>Precio máximo ($):</label>
+    <input type="number" name="precio" value="{{ precio }}" min="0">
+    <button type="submit">Buscar</button>
+</form>
+{% if resultados %}
+    <h2>Resultados</h2>
+    <table class="tabla-autos">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Kilometraje</th>
+                <th>Patente</th>
+                <th>Precio ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for auto in resultados %}
+            <tr>
+                <td>
+                    {% if auto[7] %}
+                        <img src="{{ url_for('static', filename='fotos/' ~ auto[7]) }}" alt="Foto auto" style="width:90px;max-height:70px;object-fit:cover;border-radius:8px;">
+                    {% else %}
+                        <span style="color:#888;">Sin foto</span>
+                    {% endif %}
+                </td>
+                <td>{{ auto[1] }}</td>
+                <td>{{ auto[2] }}</td>
+                <td>{{ auto[3] }}</td>
+                <td>{{ "{:,}".format(auto[4]|int) }} km</td>
+                <td>{{ auto[5] }}</td>
+                <td>${{ "{:,}".format(auto[6]|int) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif resultados is not none and request.method == 'POST' %}
+    <p style="font-size:1.1em;">No se encontraron autos con esos criterios.</p>
+{% endif %}
+<div style="text-align:center;margin-top:20px;">
+    <a href="/" class="boton">Volver</a>
+</div>
+{% endblock %} 

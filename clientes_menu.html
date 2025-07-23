@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Clientes</h1>
+<div style="margin:40px;">
+    <a href="{{ url_for('registro_cliente') }}" class="boton">Registrarse</a>
+    <a href="{{ url_for('login_cliente') }}" class="boton">Ingresar</a>
+</div>
+<div style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('index') }}" class="boton">Volver</a>
+</div>
+{% endblock %} 

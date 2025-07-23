@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Venta de Autos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='carrito.png') }}">
+</head>
+<body>
+    <nav class="menu-superior">
+        <div class="logo">AutoVentas</div>
+        <ul>
+            <li><a href="{{ url_for('autos') }}">Autos</a></li>
+            <li><a href="{{ url_for('clientes') }}">Ingreso Clientes</a></li>
+            <li><a href="{{ url_for('consultas') }}">Consultas</a></li>
+            <li><a href="#">Noticias</a></li>
+            <li><a href="{{ url_for('buscar') }}">Buscar</a></li>
+            <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+            {% if session.get('cliente_id') %}
+                <li><a href="{{ url_for('logout_cliente') }}" style="color:#e74c3c;font-weight:bold;">Salir</a></li>
+            {% endif %}
+        </ul>
+        <div class="carrito">
+            <a href="{{ url_for('carrito') }}">
+                <img src="{{ url_for('static', filename='carrito.png') }}" alt="Carrito" class="icono-carrito">
+            </a>
+        </div>
+    </nav>
+    <div class="contenido">
+        {% block contenido %}{% endblock %}
+    </div>
+</body>
+</html> 

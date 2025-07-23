@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Contacto</h1>
+<div style="margin:40px auto;max-width:400px;text-align:center;">
+    <p style="font-size:1.2em;"><b>Correo:</b> <a href="mailto:{{ correo }}">{{ correo }}</a></p>
+    <p style="font-size:1.2em;"><b>Teléfono:</b> <a href="tel:{{ telefono }}">{{ telefono }}</a></p>
+</div>
+<div style="text-align:center;margin-top:20px;">
+    <a href="/" class="boton">Volver</a>
+</div>
+{% endblock %} 

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Consultas</h1>
+<form method="post" style="margin-bottom:30px;text-align:center;">
+    <label style="font-size:1.1em;font-weight:bold;">Selecciona una consulta:</label>
+    <select name="opcion" onchange="this.form.submit()" style="margin-left:10px;">
+        <option value="cliente" {% if opcion=='cliente' %}selected{% endif %}>Compras por cliente</option>
+        <option value="auto" {% if opcion=='auto' %}selected{% endif %}>Autos vendidos</option>
+        <option value="total" {% if opcion=='total' %}selected{% endif %}>Total vendido</option>
+    </select>
+    <noscript><button type="submit">Ver</button></noscript>
+</form>
+
+{% if opcion == 'cliente' %}
+    <h2>Compras por cliente</h2>
+    <table class="tabla-autos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Patente</th>
+                <th>Fecha</th>
+                <th>Valor</th>
+                <th>Medio de pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in resultados %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td>{{ r[3] }}</td>
+                <td>{{ r[4] }}</td>
+                <td>${{ "{:,}".format(r[5]|int) }}</td>
+                <td>{{ r[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif opcion == 'auto' %}
+    <h2>Autos vendidos</h2>
+    <table class="tabla-autos">
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Valor</th>
+                <th>Fecha</th>
+                <th>Patente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in resultados %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>${{ "{:,}".format(r[2]|int) }}</td>
+                <td>{{ r[3] }}</td>
+                <td>{{ r[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif opcion == 'total' %}
+    <h2>Total vendido</h2>
+    <p style="font-size:1.2em;">Total general: <b>${{ "{:,}".format(total_general|int) }}</b></p>
+    <h3>Ventas diarias</h3>
+    <table class="tabla-autos">
+        <thead><tr><th>Fecha</th><th>Total vendido</th></tr></thead>
+        <tbody>
+            {% for d in total_diario %}
+            <tr><td>{{ d[0] }}</td><td>${{ "{:,}".format(d[1]|int) }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Ventas mensuales</h3>
+    <table class="tabla-autos">
+        <thead><tr><th>Mes</th><th>Total vendido</th></tr></thead>
+        <tbody>
+            {% for m in total_mensual %}
+            <tr><td>{{ m[0] }}</td><td>${{ "{:,}".format(m[1]|int) }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+<div style="text-align:center;margin-top:20px;">
+    <a href="/" class="boton">Volver</a>
+</div>
+{% endblock %} 

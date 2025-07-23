@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block contenido %}
+    <h1>Bienvenido a AutoVentas</h1>
+    <p style="font-size:1.5em;">Tu lugar para encontrar el auto ideal, fácil y rápido.</p>
+    <img src="{{ url_for('static', filename='autos_banner.jpg') }}" alt="Banner Autos" style="width:80%;margin-top:30px;border-radius:20px;">
+    <div style="text-align:center;margin-top:20px;">
+        <a href="/" class="boton">Volver</a>
+    </div>
+{% endblock %} 

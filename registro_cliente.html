@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Registro de Cliente</h1>
+<form method="post" class="formulario">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
+    <label>Correo:</label>
+    <input type="email" name="correo" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required>
+    <label>Dirección:</label>
+    <input type="text" name="direccion" required>
+    <label>Contraseña:</label>
+    <input type="password" name="contrasena" required>
+    <button type="submit">Registrarse</button>
+</form>
+<div style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('clientes') }}" class="boton">Volver</a>
+</div>
+{% endblock %} 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Ingreso de Cliente</h1>
+<form method="post" class="formulario">
+    <label>Correo:</label>
+    <input type="email" name="correo" required>
+    <label>Contraseña:</label>
+    <input type="password" name="contrasena" required>
+    <button type="submit">Ingresar</button>
+</form>
+<div style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('clientes') }}" class="boton">Volver</a>
+</div>
+{% endblock %} 

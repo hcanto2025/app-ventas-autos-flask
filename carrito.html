@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Carrito de Compras</h1>
+{% if autos %}
+    <table class="tabla-autos">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Kilometraje</th>
+                <th>Patente</th>
+                <th>Precio ($)</th>
+                <th>Quitar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for auto in autos %}
+            {% if auto|length >= 8 %}
+            <tr>
+                <td>
+                    {% if auto[7] %}
+                        <img src="{{ url_for('static', filename='fotos/' ~ auto[7]) }}" alt="Foto auto" style="width:90px;max-height:70px;object-fit:cover;border-radius:8px;">
+                    {% else %}
+                        <span style="color:#888;">Sin foto</span>
+                    {% endif %}
+                </td>
+                <td>{{ auto[1] }}</td>
+                <td>{{ auto[2] }}</td>
+                <td>{{ auto[3] }}</td>
+                <td>{{ "{:,}".format(auto[4]|int) }} km</td>
+                <td>{{ auto[5] }}</td>
+                <td>${{ "{:,}".format(auto[6]|int) }}</td>
+                <td><a href="{{ url_for('eliminar_carrito', auto_id=auto[0]) }}" class="boton" style="background:#e74c3c; color:#fff;">Eliminar</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2 style="margin-top:30px;">Total: ${{ "{:,}".format(total|int) }}</h2>
+    <form method="post" class="formulario" style="max-width:350px;">
+        <label>Medio de pago:</label>
+        <select name="medio_pago" required>
+            {% for medio in medios_pago %}
+                <option value="{{ medio }}">{{ medio }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Finalizar compra</button>
+    </form>
+{% else %}
+    <p style="font-size:1.2em;">Tu carrito está vacío.</p>
+{% endif %}
+<div style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('autos') }}" class="boton">Volver</a>
+</div>
+{% endblock %} 
